@@ -15,6 +15,7 @@ import passport from 'passport';
 import initializePassport from './config/passport.js';
 import nodemailer from 'nodemailer'
 
+
 // CORS OPTIONS
 const whiteList = ['http://localhost:5173']
 const corsOptions = {
@@ -94,22 +95,24 @@ let transporter = nodemailer.createTransport({
 app.get('/mail', async (req, res) => {
     const resultado = await transporter.sendMail({
     from: 'TEST MAIL danielbustostrabajo@gmail.com',
-    to: 'danielbustosjaime@gmail.com',
+    to: 'agus.7396@gmail.com',
     subject: 'Hola, buenas tardes',
     html:
     `<div>
-        <h1>Buenas tardes</h1>
+        <h1>Te amo</h1>
     </div>
     `,
-    attachments: [{
+    /*attachments: [{
         filename: 'archivo.jpg', //nombre del archivo
         path: __dirname + 'img/archivo.jpg', //ruta del archivo
         cid: 'archivo.jpg' //referencia del archivo
-    }] 
+    }] */
     })
     console.log(resultado)
     res.send("Email enviado")
 })
+
+
 
 initializePassport()
 app.use(passport.initialize())

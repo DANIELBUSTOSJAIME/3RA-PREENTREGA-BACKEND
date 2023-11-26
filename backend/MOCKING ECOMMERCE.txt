@@ -1,0 +1,14 @@
+TDD MOCKING
+AGREGAR PRODUCTS
+Puede que en price y stock se ingresen string
+
+AGREGAR USERS
+Puede que en name y lastName se ingresen number
+Puede que en email no se ingrese formato de email
+Puede que en age se ingresen string
+Puede que no se agregue un id_carrito al crear el usuario
+
+AGREGAR PRODUCTS AL CART
+Puede que se agregue el product al carrito pero no el quantity solicitado
+Puede que al agregarse el mismo producto no se superpongan el quantity y se duplique el item
+

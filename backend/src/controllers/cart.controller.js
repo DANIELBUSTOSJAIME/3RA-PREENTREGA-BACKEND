@@ -155,7 +155,7 @@ export const postPurchase = async (req, res, next) => {
       cart.products = remainingProducts;
       await cart.save();
   
-      res.json({ message: 'Compra finalizada con éxito' });
+      res.json({ message: 'Compra finalizada con éxito', newTicket });
     } catch (error) {
       next(error);
     }

@@ -2,7 +2,7 @@ import { userModel } from "../models/user.models.js";
 
 export const getUsers = async (req, res) => {
     try{
-        const users = await userModel.find.limit()
+        const users = await userModel.find().limit()
         res.status(200).send({respuesta: 'OK', mensaje: users})
     } catch (error) {
         res.status(400).send({respuesta: "Error en consultar usuario", mensaje: error})

@@ -7,10 +7,10 @@ const cartRouter = Router()
 cartRouter.get( '/:id', getCartById)
 cartRouter.put('/:cid', putCartById)
 cartRouter.delete( '/:cid', deleteCartById)
-cartRouter.post( '/:cid/products/:pid', passportError('jwt'), authorization('user'), postProductInCart)
+cartRouter.post( '/:cid/products/:pid', postProductInCart)
 cartRouter.put('/:cid/products/:pid', passportError('jwt'), authorization('user'), putProductInCart)
 cartRouter.delete('/:cid/products/:pid', passportError('jwt'), authorization('user'), deleteProductInCart)
-cartRouter.post('/:cid/purchase', passportError('jwt'), authorization('user'), postPurchase)
+cartRouter.post('/:cid/purchase', postPurchase)
 
 /*cartRouter.get( '/:id', async (req, res) => {
     const {id} = req.params

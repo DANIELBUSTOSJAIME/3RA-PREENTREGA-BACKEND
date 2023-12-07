@@ -168,7 +168,6 @@ export const postPurchase = async (req, res) => {
                 const ticket = await ticketModel.create({
                     code: uuidv4(),
                     amount: totalAmount,
-                    purchaser: req.user.email
                 })
     
                 cart.products= cart.products.filter(item => !purchasedProducts.includes(item));

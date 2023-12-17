@@ -1,0 +1,176 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtener a todos los productos
+      tags:
+        - Products
+      responses:
+        '200':
+          description: Productos obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Error interno del servidor
+    post:
+      summary: Crear un nuevo producto
+      tags:
+        - Products
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema: 
+            type: object
+            properties:
+              title: 
+                type: string
+              description: 
+                type: string
+              price: 
+                type: number
+              code: 
+                type: string
+              stock: 
+                type: number
+              category: 
+                type: string  
+      responses:
+        '201':
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Error interno del servidor
+  /api/products/{id}:  
+    get:
+      summary: Obtener un producto con su ID
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $type: String
+          description: ID del producto a buscar 
+      responses:
+        '200':
+          description: Producto obtenido correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Error interno del servidor
+    put:
+      summary: Actualizar un producto con su ID
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $type: String
+          description: ID del producto a actualizar 
+        - name: body
+          in: body
+          required: true
+          schema: 
+            type: object
+            properties:
+              title: 
+                type: string
+              description: 
+                type: string
+              price: 
+                type: number
+              code: 
+                type: string
+              stock: 
+                type: number
+              category: 
+                type: string  
+      responses:
+        '200':
+          description: Producto actualizado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Error interno del servidor
+    delete:
+      summary: Eliminar un producto con su ID
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $type: String
+          description: ID del producto a eliminar 
+      responses:
+        '200':
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Product'
+        '500':
+          description: Error interno del servidor    
+
+components:
+  schemas:
+    Product:
+      type: objects
+      properties:
+        _id: 
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title: 
+          type: String
+          description: Nombre del producto
+        description: 
+          type: String
+          description: Descripcion del producto
+        price: 
+          type: Number
+          description: Precio del producto
+        code: 
+          type: String
+          description: Codigo del producto
+        stock: 
+          type: Number
+          description: Stock del producto
+        category: 
+          type: String
+          description: Categoria del producto
+        status: 
+          type: Boolean
+          description: Estado del producto
+        thumbnails: 
+          type: String
+          description: Imagen del producto  
+      example:
+        _id: ObjectId('6503d1e11fb83ba61aad952b')
+        title: "PLAYSTATION 5"
+        description: "512 MG"
+        price: 1247772
+        code: "DANI13"
+        stock: 2
+        category: "games"
+        status: true
+        thumbnails: Array (empty)      
+

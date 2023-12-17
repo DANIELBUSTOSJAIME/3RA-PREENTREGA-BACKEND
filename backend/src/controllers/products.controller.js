@@ -23,7 +23,7 @@ export const getProductById = async (req, res) => {
         const prod = await productModel.findById(id)
 
         if(prod){
-            return res.status(200).send(product)
+            return res.status(200).send(prod)
         }
         res.status(404).send({error: "Producto no encontrado"})
     } catch (error) {
@@ -58,7 +58,7 @@ export const putProductById = async (req, res) => {
         const prod = await productModel.findByIdAndUpdate(id, {title, description, code, price, stock, category})
 
         if(prod){
-            return res.status(200).send(product)
+            return res.status(200).send(prod)
         }
         res.status(404).send({error: "Producto no encontrado"})
     } catch (error) {
@@ -73,7 +73,7 @@ export const deleteProductById = async (req, res) => {
         const prod = await productModel.findByIdAndDelete(id)
 
         if(prod){
-            return res.status(200).send(product)
+            return res.status(200).send(prod)
         }
         res.status(404).send({error: "Producto no encontrado"})
     } catch (error) {

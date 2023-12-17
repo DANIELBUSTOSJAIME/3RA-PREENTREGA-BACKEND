@@ -14,10 +14,12 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import initializePassport from './config/passport.js';
 import nodemailer from 'nodemailer'
-
+import {addLogger} from './config/loggers.js'
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express'
 
 // CORS OPTIONS
-const whiteList = ['http://localhost:5173']
+const whiteList = ['http://localhost:5173', 'http://localhost:8080']
 const corsOptions = {
     origin: function(origin, callback){
         if(whiteList.indexOf(origin) != -1 || !origin){
@@ -59,6 +61,22 @@ mongoose.connect(process.env.MONGO_URL)
 })
 .catch(() => console.log('Error en conexion con BDD'))
 
+// DOCUMENTACION DE API CON SWAGGER
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.1.0',
+        info: {
+            titule: "Documentacion del curso de Backend",
+            description: "API Coder Backend"
+        }
+    },
+    apis: [`${__dirname}/docs/**/*.yaml`]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
+
 // MIDLEWEARES
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -79,7 +97,31 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+app.use(addLogger)
+app.get('/info', (req, res) => {
+    req.logger.info("Info")
+    res.send("Info!")
+})
 
+app.get('/error', (req, res) => {
+    req.logger.error("Error")
+    res.send("Error!")
+})
+
+app.get('/fatal', (req, res) => {
+    req.logger.fatal("Fatal")
+    res.send("Fatal!")
+})
+
+app.get('/warning', (req, res) => {
+    req.logger.warning("Warning")
+    res.send("Warning!")
+})
+
+app.get('/debug', (req, res) => {
+    req.logger.debug("Debug")
+    res.send("Debug!")
+})
 // NODEMAILER CONFIG
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -147,7 +189,7 @@ const cargarProd = async () => {
         console.error("Error: not product found");
     }
 }
-cargarProd();
+//cargarProd();
 
 io.on('connection', async (socket) => {
     console.log("Servidor Socket.io conectado")

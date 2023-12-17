@@ -8,7 +8,7 @@ productRouter.get( '/', getProducts)
 productRouter.get( '/:id', getProductById)
 productRouter.post( '/', passportError('jwt'), authorization('admin'), postProduct)
 productRouter.put( '/:id', passportError('jwt'), authorization('admin'), putProductById) 
-productRouter.delete( '/:id', passportError('jwt'), authorization('admin'), deleteProductById)
+productRouter.delete( '/:id', deleteProductById)
 
 /*productRouter.get( '/', async (req, res) => {
     // RUTA POSTMAN - http://localhost:8080/api/products/?limit=15&page=2&sort=asc&category=games

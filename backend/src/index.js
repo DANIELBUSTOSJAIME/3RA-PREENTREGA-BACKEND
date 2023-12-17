@@ -99,22 +99,22 @@ app.use(session({
 }))
 app.use(addLogger)
 app.get('/info', (req, res) => {
-    req.logger.info("Info")
+    req.logger.info('<span style= "color:blue">Texto informativo de Info</span><br />')
     res.send("Info!")
 })
 
 app.get('/error', (req, res) => {
-    req.logger.error("Error")
+    req.logger.error('<span style= "color:yellow">Texto informativo de Error</span><br />')
     res.send("Error!")
 })
 
 app.get('/fatal', (req, res) => {
-    req.logger.fatal("Fatal")
+    req.logger.fatal('<span style= "color:red">Texto informativo de Fatal</span><br />')
     res.send("Fatal!")
 })
 
 app.get('/warning', (req, res) => {
-    req.logger.warning("Warning")
+    req.logger.warning('<span style= "color:cyan">Texto informativo de Warning</span><br />')
     res.send("Warning!")
 })
 

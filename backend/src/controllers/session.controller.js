@@ -1,4 +1,6 @@
 import { generateToken } from "../utils/jwt.js";
+import 'dotenv/config'
+import jwt from 'jsonwebtoken';
 
 export const postLogin = async (req, res) => {
   try {
@@ -17,7 +19,7 @@ export const postLogin = async (req, res) => {
     res.cookie('jwtCookie', token, {
       maxAge: 43200000
     })
-    res.status(200).send({ token })
+    res.status(200).send({ status:"success",payload:req.user, token:token })
     console.log(token)
       }catch(error){
         res.status(500).send({mensaje: `error al iniciar sesion ${error} `})
@@ -29,14 +31,17 @@ export const postSignUp = async (req, res) => {
     if (!req.user) {
       return res.status(400).send({ mensaje: "Usuario ya existente" });
     }
-    res.status(200).send({ mensaje: "Usuario registrado" });
+    res.status(200).send({ status:"success",payload:req.user, mensaje: "Usuario registrado" });
   } catch (error) {
     res.status(500).send({ mensaje: `Error al registrar usuario ${error}` });
   }
 };
 
 export const getCurrentUser = (req, res) => {
-  res.send(req.user);
+  const cookie = req.cookies['jwtCookie']
+  const user = jwt.verify(cookie, process.env.JWT_SECRET);
+    if(user)
+        return res.send({status:"success",payload:req.user})
 };
 
 export const getGithubAuth = async (req, res) => {

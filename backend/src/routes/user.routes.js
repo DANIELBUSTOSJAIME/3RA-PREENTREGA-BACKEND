@@ -1,13 +1,15 @@
-import { getUsers, getUserById, putUserById, deleteUserById } from "../controllers/user.controller.js";
+import { getUsers, getUserById, putUserById, deleteUserById, recoveryPassword, resetPassword } from "../controllers/user.controller.js";
 import { Router } from "express";
 import { passportError, authorization } from "../utils/messagesError.js";
 
 const userRouter = Router()
 
-userRouter.get( '/', getUsers)
-userRouter.get( '/:id', getUserById)
+userRouter.get( '/', passportError('jwt'), authorization('admin'), getUsers)
+userRouter.get( '/:id', passportError('jwt'), authorization('admin'), getUserById)
 userRouter.put( '/:id', passportError('jwt'), authorization('admin'), putUserById)
 userRouter.delete( '/:id', passportError('jwt'), authorization('admin'), deleteUserById)
+userRouter.post( '/password-recovery', recoveryPassword)
+userRouter.post( '/reset-password/:token', resetPassword)
 
 /*userRouter.get( '/', async (req, res) => {
     try{

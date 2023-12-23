@@ -14,6 +14,9 @@ export const postLogin = async (req, res) => {
     };
     
     const token = generateToken(req.user);
+    res.cookie('jwtCookie', token, {
+      maxAge: 43200000
+    })
     res.status(200).send({ token })
     console.log(token)
       }catch(error){

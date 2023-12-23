@@ -14,7 +14,7 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import initializePassport from './config/passport.js';
 import nodemailer from 'nodemailer'
-import {addLogger} from './config/loggers.js'
+import { addLogger } from './config/loggers.js'
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from 'swagger-ui-express'
 

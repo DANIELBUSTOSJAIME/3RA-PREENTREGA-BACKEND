@@ -4,13 +4,13 @@ import { passportError, authorization } from "../utils/messagesError.js";
 
 const cartRouter = Router()
 
-cartRouter.get( '/:id', passportError('jwt'), authorization('user'), getCartById)
+cartRouter.get( '/:id', /*passportError('jwt'), authorization('user'), */getCartById)
 cartRouter.put('/:cid', passportError('jwt'), authorization('user'), putCartById)
 cartRouter.delete( '/:cid', passportError('jwt'), authorization('user'), deleteCartById)
 cartRouter.post( '/:cid/products/:pid', /*passportError('jwt'), authorization('user'),*/ postProductInCart)
 cartRouter.put('/:cid/products/:pid', passportError('jwt'), authorization('user'), putProductInCart)
 cartRouter.delete('/:cid/products/:pid', passportError('jwt'), authorization('user'), deleteProductInCart)
-cartRouter.post('/:cid/purchase', passportError('jwt'), authorization('user'), postPurchase)
+cartRouter.post('/:cid/purchase', /*passportError('jwt'), authorization('user'),*/ postPurchase)
 
 /*cartRouter.get( '/:id', async (req, res) => {
     const {id} = req.params

@@ -1,7 +1,7 @@
-import { getUsers, getUserById, putUserById, deleteUserById, recoveryPassword, resetPassword } from "../controllers/user.controller.js";
+import { getUsers, getUserById, updateProfilePicture, updateDocuments, updateProductsImage, putUserById, deleteUserById, recoveryPassword, resetPassword } from "../controllers/user.controller.js";
 import { Router } from "express";
 import { passportError, authorization } from "../utils/messagesError.js";
-
+import { upload } from "../config/multer.js";
 const userRouter = Router()
 
 userRouter.get( '/', passportError('jwt'), authorization('admin'), getUsers)
@@ -10,7 +10,9 @@ userRouter.put( '/:id', passportError('jwt'), authorization('admin'), putUserByI
 userRouter.delete( '/:id', passportError('jwt'), authorization('admin'), deleteUserById)
 userRouter.post( '/password-recovery', recoveryPassword)
 userRouter.post( '/reset-password/:token', resetPassword)
-
+userRouter.post('/:uid/documents',upload.array('documents'), updateDocuments);
+userRouter.post('/:uid/profiles', upload.single('profileImage'), updateProfilePicture)
+userRouter.post('/:uid/products', upload.single('productImage'), updateProductsImage)
 /*userRouter.get( '/', async (req, res) => {
     try{
         const users = await userModel.find.limit()

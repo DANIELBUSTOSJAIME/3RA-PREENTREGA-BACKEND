@@ -1,5 +1,6 @@
 import { productModel } from "../models/products.models.js";
-
+import { addLogger } from "../config/loggers.js";
+app.use(addLogger)
 export const getProducts = async (req, res) => {
     const { limit, page, filter, sort } = req.query;
     const pag = page ? parseInt(page) : 1;
@@ -41,7 +42,7 @@ export const postProduct = async (req, res) => {
             return res.status(201).send(prod)
         }
         res.status(400).send({error: `Error en crear producto ${error}`})
-
+        req.logger.error(`<span style= "color:yellow">Error en crear el ${prod}</span><br />`)
     } catch (error) {
         if(error.code == 11000){
             return res.status(400).send({error: "Producto ya creado con llave duplicada"})

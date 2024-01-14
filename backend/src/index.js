@@ -2,7 +2,7 @@
 import express from 'express'
 import path from 'path'
 import { __dirname } from './path.js';
-//import multer from 'multer';
+import multer from 'multer';
 import { engine } from 'express-handlebars';
 import cors from 'cors'
 import { Server } from 'socket.io';

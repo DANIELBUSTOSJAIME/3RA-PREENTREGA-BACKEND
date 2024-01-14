@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 import { cartModel } from "./cart.models.js";
+import { da } from "@faker-js/faker";
 
 const userSchema = new Schema({
     name: {
@@ -36,6 +37,27 @@ const userSchema = new Schema({
     cart: {
         type: Schema.Types.ObjectId,
         ref: 'carts'
+    },
+    documents: {
+        type: [
+            {
+                name: {
+                    type: String,
+                    required: true
+                },
+                reference: {
+                    type: String,
+                    required: true
+                }
+            }
+        ],
+        default: function() {
+            return [];
+        }
+    },
+    last_connection: {
+        type: Date,
+        default: Date.now
     }
 })
 

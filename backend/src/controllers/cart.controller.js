@@ -146,7 +146,8 @@ export const postPurchase = async (req, res) => {
                     const products = productModel.findById(item.id_prod);
     
                     if(!products){
-                        purchaseFail.push(item.id_prod);
+                        purchaseFail.push(item.id_prod)
+                        console.log(purchaseFail);
                         continue;
                     }
     
@@ -154,24 +155,27 @@ export const postPurchase = async (req, res) => {
                 products.stock -= item.quantity;
                 await products.save()
                 purchasedProducts.push(item);
+                console.log(purchasedProducts)
                 }else{
                     purchaseFail.push(item.id_prod)
+                    console.log(purchaseFail);
                 }  
             }
     
             if(purchasedProducts.length > 0){
-                const totalAmount = purchasedProducts.reduce((total, item)=> {
+                console.log(purchasedProducts.length)
+                const totalAmount = 0/*purchasedProducts.reduce((total, item)=> {
                     const product = cart.products.find(p=> p.id_prod.equals(item.id_prod));
                     return total + product.quantity * product.id_prod.price;
-                }, 0)
+                }, 0)*/
     
                 const ticket = await ticketModel.create({
                     code: uuidv4(),
                     amount: totalAmount,
                 })
-    
-                cart.products= cart.products.filter(item => !purchasedProducts.includes(item));
-                await cart.save();
+                console.log("ticket", ticket)
+                /*cart.products= cart.products.filter(item => !purchasedProducts.includes(item));
+                await cart.save();*/
     
                 return res.status(200).send({respuesta: 'Ticket generado exitosamente', mensaje: ticket})
             }else {

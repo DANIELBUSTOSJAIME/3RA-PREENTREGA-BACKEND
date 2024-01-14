@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import {createHash} from "../utils/bcrypt.js"
 import { sendRecoveryMail } from "../config/nodemailer.js";
 
+
 export const getUsers = async (req, res) => {
     try{
         const users = await userModel.find().limit()
@@ -24,6 +25,58 @@ export const getUserById = async (req, res) => {
         res.status(400).send({respuesta: "Error en consultar usuario", mensaje: error})
     }
 }
+
+export const updateProfilePicture = async (req,res) => {
+  try{
+      if(!req.file){
+          return res.status(400).send({ message: 'Error al cargar la imagen'})
+      }
+
+      return res.status(200).send({ message: 'Imagen cargada exitosamente'})
+
+  }catch{
+
+      return res.status(500).json({ message: 'Hubo un error al subir la imagen de perfil' });
+  }
+}
+
+export const updateDocuments = async (req,res) => {
+  try{
+      if(!req.file){
+          return res.status(400).send({ message: 'Error al cargar archivo' });
+      }
+      return res.status(200).send({ message: 'Archivo cargado exitosamente' });
+  } catch{
+      return res.status(500).json({ message: 'Hubo un error al cargar los archivos' })
+  }
+}
+
+export const updateProductsImage = async (req, res) => {
+  try{
+      if(!req.file){
+          return res.status(400).send({ message: 'Error al cargar la imagen del producto' })
+      }
+      return res.status(200).send({ message: 'Imagen del producto cargada exitosamente' })
+
+  }catch{
+      return res.status(500).send({ message: 'Error al intentar subir imagen del producto' })
+  }
+}
+  /*const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'src/public/img')
+    },
+    filename: (req, file, cb) =>{
+        cb(null, `${Date.now()}${file.originalname}`)
+    }
+})
+const upload = multer ({ storage: storage})
+app.post('/upload', upload.single('product'), (req, res) => {
+    console.log(req.file)
+    console.log(req.body)
+    res.status(200).send("Imagen cargada")
+})*/
+
 
 export const putUserById = async (req, res) => {
     const {id} = req.params

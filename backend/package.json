@@ -8,7 +8,9 @@
     "dev": "nodemon src/index.js",
     "test": "mocha test/User.test.js",
     "testChai": "mocha test/UserChai.test.js",
-    "supertest": "mocha test/supertest.test.js"
+    "supertest": "mocha test/supertest.test.js",
+    "exec": "tsc ./src/index.ts",
+    "devts": "nodemon --exec ts-node-dev ./src/main.td"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +36,7 @@
     "socket.io": "^4.7.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
+    "ts-node-dev": "^2.0.0",
     "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },
